@@ -1,4 +1,3 @@
-
 #include "ViewPortGL.h"
 #include <windows.h>
 #include <math.h>
@@ -21,6 +20,14 @@ void test() {
     }
 }
 
+#pragma region Aufgabe2
+
+//Aufgabe 2
+/*
+Vorgehensweise:
+- Ecken für das Quadrat ermitteln (hier bereits im Vorfeld passiert)
+- Vier Linien von den Ecken aus setzen
+*/
 void drawSquare() {
     ViewPortGL vp = ViewPortGL("OpenGL Square", VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
     bool isRunning = true;
@@ -37,33 +44,47 @@ void drawSquare() {
     }
 }
 
+#pragma endregion
+
+#pragma region Aufgabe3
+/* Diese Variante von Aufgabe 3 ist etwas leichter zum "drauf kommen", aber bereits etwas unübersichtlich und nicht so schön
+* da nur linear interpoliert wird
+* Vorgehenheise:
+* - Pivot Punkt des Quadrats verschieben, bis es in der Mitte ist
+* - Gleichzeitig die Kantenlänge des Quadrates verringen
+* - Ab der Mitte umgekehrt
+*/
 void animateBlock() {
-    if (VIEWPORT_SIZE_X != VIEWPORT_SIZE_Y)
+    if (VIEWPORT_SIZE_X != VIEWPORT_SIZE_Y) {
+        std::cerr << "Fehler! Der Viewport ist nicht quadratisch" << std::endl;
         return;
+    }
+        
 
     ViewPortGL vp = ViewPortGL("OpenGL Animated Block", VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
     bool isRunning = true;
-    bool isGrowing = false;
+    bool isShrinking = false;
     int cornerY = 0;
     int cornerX = 0;
     int width = VIEWPORT_SIZE_X;
 
     while (isRunning) {
         isRunning = !vp.windowShouldClose();
+        // Ansosten wird das Ergebnis aus dem letzten Frame nicht gelöscht und alles ist Lila
         vp.clearViewPort();
 
-        if (isGrowing && cornerX < 499) {
+        if (isShrinking && cornerX < 499) {
             cornerX++;
             cornerY++;
-            width -= 2;
+            width -= 2; //Die Breite des Quadrats muss immer um 2 Schritte geändert werden, da wir den Urpsrung um je 1 in X UND Y ändern
         }
-        else if (!isGrowing && cornerX >= 0) {
+        else if (!isShrinking && cornerX >= 0) {
             cornerX--;
             cornerY--;
             width += 2;
         }
         else
-            isGrowing = !isGrowing;
+            isShrinking = !isShrinking;
 
         vp.prepareBlock(cornerX, cornerY, width, width, 100, 0, 100);
         vp.sendTriangles();
@@ -72,39 +93,48 @@ void animateBlock() {
     }
 }
 
+/* Anstatt linear zu Interpolieren können wir auch eine Sinus/Kosinus Funktion verwenden, um eine sauberere Animation zu erhalten.
+* Vorgehensweise:
+* - Maximalwert des Pivotpunktes und der Kantenlänge mit der Kosinusfunktion multiplizieren
+* - Damit es sich "bewegt", der Kosinusfunktion einen Wert geben, der über Zeit steigt (oder sinkt, ist ja eigentlich egal)
+* 
+* Im LoeVo wird Kosinus verwendet, da diese Funktion für den Wert 0 den Wert 1 annimmt
+*/
 void animateBlockCosine() {
-    if (VIEWPORT_SIZE_X != VIEWPORT_SIZE_Y)
+    if (VIEWPORT_SIZE_X != VIEWPORT_SIZE_Y) {
+        std::cerr << "Fehler! Der Viewport ist nicht quadratisch" << std::endl;
         return;
+    }
 
     ViewPortGL vp = ViewPortGL("OpenGL Animated Block", VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
     bool isRunning = true;
+
+    // Wir geben die Maximalwerte an, da wir mit 0 schlecht interpolieren können
     int cornerY = 499;
     int cornerX = 499;
     int width = VIEWPORT_SIZE_X;
 
-    double elapsedTime = PI;
+    double elapsedTime = 0;
 
     while (isRunning) {
         isRunning = !vp.windowShouldClose();
         vp.clearViewPort();
 
-        double elapsedTimeRad = elapsedTime * PI / 180.0;
+        double elapsedTimeRad = elapsedTime * PI / 180.0; //Die cos() funktion nimmt streng genommen nur radian Werte
 
-        double factorCos = cos(elapsedTimeRad) * .5 + .5;
-        double factorNegCos = 1.0 - factorCos;
-        elapsedTime += 0.01;
+        double factorCos = cos(elapsedTimeRad) * .5 + .5; // Das Ergebnis soll im Wertebereich [0, 1] liegen
+        double factorNegCos = 1.0 - factorCos; // Die Kantenlänge "wächst" gegensätzlich zum Pivotpunkt
+        elapsedTime += 0.1;
 
 
-        vp.prepareBlock((double)cornerX * factorCos, (double)cornerY * factorCos, (double)width * factorNegCos, (double)width * factorNegCos, 100, 0, 100);
+        vp.prepareBlock(cornerX * factorCos, cornerY * factorCos, width * factorNegCos, width * factorNegCos, 100, 0, 100);
         vp.sendTriangles();
 
         vp.swapBuffers();
-        
-        //Sleep(33);
-        //std::cout << (double)cornerX * factorCos << " " << (double)cornerY * factorCos << " " << (double)width* factorNegCos << " " << (double)width* factorNegCos << std::endl;
-        std::cout << factorCos << " " << factorNegCos << std::endl;
     }
 }
+
+#pragma endregion
 
 int main() {
     //test();

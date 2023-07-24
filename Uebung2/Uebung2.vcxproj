@@ -144,6 +144,9 @@
     <ClInclude Include="..\src\StringHelper.h" />
     <ClInclude Include="..\src\ViewPortGL.h" />
     <ClInclude Include="..\src\WindowInterface.h" />
+    <ClInclude Include="PulsatingAnimation.h" />
+    <ClInclude Include="Shape.h" />
+    <ClInclude Include="Square.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\glad.c" />
@@ -151,6 +154,9 @@
     <ClCompile Include="..\src\StringHelper.cpp" />
     <ClCompile Include="..\src\ViewPortGL.cpp" />
     <ClCompile Include="..\src\WindowInterface.cpp" />
+    <ClCompile Include="Shape.cpp" />
+    <ClCompile Include="Square.cpp" />
+    <ClCompile Include="UE2.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

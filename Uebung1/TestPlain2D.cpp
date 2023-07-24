@@ -3,8 +3,8 @@
 #include <math.h>
 #include <iostream>
 
-constexpr auto VIEWPORT_SIZE_X = 1000;
-constexpr auto VIEWPORT_SIZE_Y = 1000;
+constexpr int VIEWPORT_SIZE_X = 1000;
+constexpr int VIEWPORT_SIZE_Y = 1000;
 #define PI 3.14159265
 
 void test() {

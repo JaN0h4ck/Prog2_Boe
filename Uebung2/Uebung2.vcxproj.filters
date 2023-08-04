@@ -39,6 +39,9 @@
     <ClInclude Include="Square.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Disk.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\glad.c">
@@ -63,6 +66,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Square.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Disk.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

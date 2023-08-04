@@ -1,5 +1,6 @@
 #include "ViewPortGL.h"
 #include "Square.h"
+#include "Disk.h"
 
 constexpr auto VIEWPORT_SIZE_X = 1000;
 constexpr auto VIEWPORT_SIZE_Y = 1000;
@@ -24,7 +25,23 @@ void SquareTest() {
 	}
 }
 
+void DiskTest() {
+	ViewPortGL vp = ViewPortGL("CircleTest", VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
+	bool shouldClose = false;
+	Disk redDisk = Disk(255, 0, 0);
+	while (!shouldClose) {
+		shouldClose = vp.windowShouldClose();
+		vp.clearViewPort();
+
+		redDisk.prepare(vp, 499, 499, 50);
+		vp.sendLines();
+
+		vp.swapBuffers();
+	}
+}
+
 int main() {
-	SquareTest();
+	//SquareTest();
+	DiskTest();
 	return 0;
 }

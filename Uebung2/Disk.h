@@ -1,11 +1,11 @@
 #pragma once
 #include "Shape.h"
+#include <math.h>
 
-class Square :
-    public Shape
-{
+class Disk :
+    public Shape {
 public:
-    Square(int red, int green, int blue);
+    Disk(int red, int green, int blue);
 
     void prepare(ViewPortGL& vp, int centerX, int centerY, int size);
 };

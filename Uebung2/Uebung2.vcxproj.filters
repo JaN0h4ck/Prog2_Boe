@@ -77,5 +77,8 @@
     <ClCompile Include="EquilateralTriangle.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="PulsatingAnimation.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

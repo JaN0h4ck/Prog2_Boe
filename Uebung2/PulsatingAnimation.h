@@ -1,6 +1,8 @@
 #pragma once
 #include "ViewPortGL.h"
 #include "Shape.h"
+#include <math.h>
+#include <chrono>
 
 
 
@@ -12,6 +14,7 @@ public:
 
 private:
 	int posX, posY;
-	int minSize, maxSize;
+	int minSize, maxSize, midPoint; 
+	double halfDifference;
 };
 

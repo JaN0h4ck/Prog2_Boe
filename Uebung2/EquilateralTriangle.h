@@ -1,7 +1,6 @@
 #pragma once
 #include "Shape.h"
 #include <math.h>
-#include <iostream>
 class EquilateralTriangle :
     public Shape
 {

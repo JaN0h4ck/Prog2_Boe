@@ -158,6 +158,7 @@
     <ClCompile Include="..\src\WindowInterface.cpp" />
     <ClCompile Include="Disk.cpp" />
     <ClCompile Include="EquilateralTriangle.cpp" />
+    <ClCompile Include="PulsatingAnimation.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="Square.cpp" />
     <ClCompile Include="UE2.cpp" />

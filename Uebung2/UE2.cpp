@@ -2,6 +2,7 @@
 #include "Square.h"
 #include "Disk.h"
 #include "EquilateralTriangle.h"
+#include "PulsatingAnimation.h"
 
 constexpr auto VIEWPORT_SIZE_X = 1000;
 constexpr auto VIEWPORT_SIZE_Y = 1000;
@@ -63,6 +64,8 @@ void TestingAllShapes() {
 	Disk redDisk = Disk(255, 0, 0);
 	Square blueSquare = Square(0, 0, 255);
 	EquilateralTriangle greenTriangle = EquilateralTriangle(0, 255, 00);
+	PulsatingAnimation anim = PulsatingAnimation(100, 700, 50, 150);
+	EquilateralTriangle controlTriangle = EquilateralTriangle(255, 0, 0);
 	while (!shouldClose) {
 		shouldClose = vp.windowShouldClose();
 		vp.clearViewPort();
@@ -70,7 +73,8 @@ void TestingAllShapes() {
 		yellowTriangle.prepare(vp, 700, 700, 35);
 		redDisk.prepare(vp, 499, 499, 50);
 		blueSquare.prepare(vp, 40, 40, 15);
-		greenTriangle.prepare(vp, 100, 700, 99);
+		//greenTriangle.prepare(vp, 100, 700, 99);
+		anim.animate(vp, greenTriangle);
 
 		vp.sendLines();
 		vp.sendTriangles();

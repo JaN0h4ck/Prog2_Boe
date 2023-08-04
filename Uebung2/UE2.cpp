@@ -56,9 +56,33 @@ void TriangleTest() {
 	}
 }
 
+void TestingAllShapes() {
+	ViewPortGL vp = ViewPortGL("All Shapes Test", VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
+	bool shouldClose = false;
+	EquilateralTriangle yellowTriangle = EquilateralTriangle(0, 255, 255);
+	Disk redDisk = Disk(255, 0, 0);
+	Square blueSquare = Square(0, 0, 255);
+	EquilateralTriangle greenTriangle = EquilateralTriangle(0, 255, 00);
+	while (!shouldClose) {
+		shouldClose = vp.windowShouldClose();
+		vp.clearViewPort();
+
+		yellowTriangle.prepare(vp, 700, 700, 35);
+		redDisk.prepare(vp, 499, 499, 50);
+		blueSquare.prepare(vp, 40, 40, 15);
+		greenTriangle.prepare(vp, 100, 700, 99);
+
+		vp.sendLines();
+		vp.sendTriangles();
+
+		vp.swapBuffers();
+	}
+}
+
 int main() {
 	//SquareTest();
 	//DiskTest();
-	TriangleTest();
+	//TriangleTest();
+	TestingAllShapes();
 	return 0;
 }

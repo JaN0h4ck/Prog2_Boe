@@ -11,7 +11,7 @@ void Disk::prepare(ViewPortGL& vp, int centerX, int centerY, int size) {
 	int PunktrechtsX = centerX + radius;
 	int PunktrechtsY = centerY;
 
-	vp.prepareLine(PunktlinksX, PunktlinksY, PunktrechtsX, PunktrechtsY, 100, 200, 50);
+	vp.prepareLine(PunktlinksX, PunktlinksY, PunktrechtsX, PunktrechtsY, red, green, blue);
 
 	for (size_t hoehe = 1; hoehe <= radius; hoehe++)
 	{
@@ -22,8 +22,8 @@ void Disk::prepare(ViewPortGL& vp, int centerX, int centerY, int size) {
 
 		int gesuchterPunktrechtsX = centerX + gesuchtelaengesqr;
 
-		vp.prepareLine(gesuchterPunktlinksX, centerY - hoehe, gesuchterPunktrechtsX, centerY - hoehe, 100, 200, 50);
+		vp.prepareLine(gesuchterPunktlinksX, centerY - hoehe, gesuchterPunktrechtsX, centerY - hoehe, red, green, blue);
 
-		vp.prepareLine(gesuchterPunktlinksX, centerY + hoehe, gesuchterPunktrechtsX, centerY + hoehe, 100, 200, 50);
+		vp.prepareLine(gesuchterPunktlinksX, centerY + hoehe, gesuchterPunktrechtsX, centerY + hoehe, red, green, blue);
 	}
 }

@@ -42,6 +42,9 @@
     <ClInclude Include="Disk.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="EquilateralTriangle.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\glad.c">
@@ -69,6 +72,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Disk.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="EquilateralTriangle.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

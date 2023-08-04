@@ -1,6 +1,7 @@
 #include "ViewPortGL.h"
 #include "Square.h"
 #include "Disk.h"
+#include "EquilateralTriangle.h"
 
 constexpr auto VIEWPORT_SIZE_X = 1000;
 constexpr auto VIEWPORT_SIZE_Y = 1000;
@@ -40,8 +41,24 @@ void DiskTest() {
 	}
 }
 
+void TriangleTest() {
+	ViewPortGL vp = ViewPortGL("TriangleTest", VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
+	bool shouldClose = false;
+	EquilateralTriangle redTriangle = EquilateralTriangle(255, 0, 0);
+	while (!shouldClose) {
+		shouldClose = vp.windowShouldClose();
+		vp.clearViewPort();
+
+		redTriangle.prepare(vp, 499, 499, 50);
+		vp.sendLines();
+
+		vp.swapBuffers();
+	}
+}
+
 int main() {
 	//SquareTest();
-	DiskTest();
+	//DiskTest();
+	TriangleTest();
 	return 0;
 }

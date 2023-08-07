@@ -7,6 +7,11 @@ PulsatingAnimation::PulsatingAnimation(int x, int y, int min, int max): posX{x},
 	halfDifference = (maxSize - minSize) / 2.f;
 }
 
+/// <summary>
+/// Animates a Shape based on the Unix timestamp
+/// </summary>
+/// <param name="vp">The Viewport the Shape is placed within</param>
+/// <param name="s">The Shape that is to be animated</param>
 void PulsatingAnimation::animate(ViewPortGL& vp, Shape& s)
 {
 	const auto p1 = std::chrono::system_clock::now();

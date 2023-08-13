@@ -6,6 +6,8 @@
 
 constexpr auto VIEWPORT_SIZE_X = 1000;
 constexpr auto VIEWPORT_SIZE_Y = 1000;
+constexpr float PI = 3.141f;
+constexpr float alpha = PI / 6.0f;
 
 void SquareTest() {
 	ViewPortGL vp = ViewPortGL("SquareTest", VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
@@ -56,6 +58,7 @@ void TriangleTest() {
 		vp.swapBuffers();
 	}
 }
+
 
 void TestingAllShapes() {
 	ViewPortGL vp = ViewPortGL("All Shapes Test", VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
@@ -110,11 +113,44 @@ void ShapeAndAnimationTest() {
 	}
 }
 
+void DrawSierpinski(ViewPortGL& vp, int centerX, int centerY, int size, int maxIter) {
+	if (maxIter > 0) {
+		maxIter--;
+		EquilateralTriangle(255, 0, 0).prepareFaceDown(vp, centerX, centerY, size);
+
+		int halfSize = size / 2;
+		float u = (float)size * sin(alpha);
+		float v = (float)size * cos(alpha);
+		DrawSierpinski(vp, centerX - v, centerY + u, halfSize, maxIter);
+		DrawSierpinski(vp, centerX + v, centerY + u, halfSize, maxIter);
+		DrawSierpinski(vp, centerX, centerY - (halfSize + u), halfSize, maxIter);
+	}
+	else
+		return;
+}
+
+void Sierpinski() {
+	ViewPortGL vp = ViewPortGL("Sierpinski", VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
+	bool shouldClose = false;
+	
+	while (!shouldClose) {
+		shouldClose = vp.windowShouldClose();
+		vp.clearViewPort();
+
+		DrawSierpinski(vp, VIEWPORT_SIZE_X / 2, VIEWPORT_SIZE_Y / 2 + VIEWPORT_SIZE_Y /2 /2, VIEWPORT_SIZE_X / 2 / 2, 6);
+		vp.sendLines();
+
+		vp.swapBuffers();
+	}
+}
+
+
 int main() {
 	//SquareTest();
 	//DiskTest();
 	//TriangleTest();
 	//TestingAllShapes();
-	ShapeAndAnimationTest();
+	//ShapeAndAnimationTest();
+	Sierpinski();
 	return 0;
 }

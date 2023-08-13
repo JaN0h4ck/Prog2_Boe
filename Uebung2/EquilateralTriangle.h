@@ -8,5 +8,7 @@ public:
     EquilateralTriangle(int red, int green, int blue);
 
     void prepare(ViewPortGL& vp, int centerX, int centerY, int size);
+
+    void prepareFaceDown(ViewPortGL& vp, int centerX, int centerY, int size);
 };
 

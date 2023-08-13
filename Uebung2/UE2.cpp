@@ -155,7 +155,7 @@ void Sierpinski() {
 		shouldClose = vp.windowShouldClose();
 		vp.clearViewPort();
 
-		PrepareSierpinski(vp, VIEWPORT_SIZE_X / 2, VIEWPORT_SIZE_Y / 2 + VIEWPORT_SIZE_Y /2 /2, VIEWPORT_SIZE_X / 2 / 2, 6);
+		PrepareSierpinski(vp, VIEWPORT_SIZE_X / 2 - 1, VIEWPORT_SIZE_Y / 2 + VIEWPORT_SIZE_Y /2 /2 - 1, VIEWPORT_SIZE_X / 2 / 2 - 1, 6);
 		vp.sendLines();
 
 		vp.swapBuffers();

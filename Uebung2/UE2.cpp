@@ -9,6 +9,7 @@ constexpr auto VIEWPORT_SIZE_Y = 1000;
 constexpr float PI = 3.141f;
 constexpr float alpha = PI / 6.0f;
 
+#pragma region TesterFunctions
 void SquareTest() {
 	ViewPortGL vp = ViewPortGL("SquareTest", VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
 	bool isRunning = true;
@@ -112,18 +113,35 @@ void ShapeAndAnimationTest() {
 		vp.swapBuffers();
 	}
 }
+#pragma endregion
 
-void DrawSierpinski(ViewPortGL& vp, int centerX, int centerY, int size, int maxIter) {
+#pragma region Aufgabe_3
+/// <summary>
+/// Calculates a corressponding color based on the shapes position in the viewport
+/// </summary>
+void calculateColors(int centerX, int centerY, int& red, int& green) {
+	red = 255 - ((centerX * 255) / (VIEWPORT_SIZE_X - 1));
+	green = 255 - ((centerY * 255) / (VIEWPORT_SIZE_Y - 1));
+}
+
+/// <summary>
+/// A recursive Function prepares a Sierpinski Triangle
+/// </summary>
+/// <param name="size"> The distance between the center and the corners </param>
+/// <param name="maxIter"> The maximum amount of Iterations to come after the current one</param>
+void PrepareSierpinski(ViewPortGL& vp, int centerX, int centerY, int size, int maxIter) {
 	if (maxIter > 0) {
 		maxIter--;
-		EquilateralTriangle(255, 0, 0).prepareFaceDown(vp, centerX, centerY, size);
+		int red = 0, green = 0;
+		calculateColors(centerX, centerY, red, green);
+		EquilateralTriangle(red, green, 0).prepareFaceDown(vp, centerX, centerY, size);
 
 		int halfSize = size / 2;
 		float u = (float)size * sin(alpha);
 		float v = (float)size * cos(alpha);
-		DrawSierpinski(vp, centerX - v, centerY + u, halfSize, maxIter);
-		DrawSierpinski(vp, centerX + v, centerY + u, halfSize, maxIter);
-		DrawSierpinski(vp, centerX, centerY - (halfSize + u), halfSize, maxIter);
+		PrepareSierpinski(vp, centerX - v, centerY + u, halfSize, maxIter);
+		PrepareSierpinski(vp, centerX + v, centerY + u, halfSize, maxIter);
+		PrepareSierpinski(vp, centerX, centerY - (halfSize + u), halfSize, maxIter);
 	}
 	else
 		return;
@@ -137,13 +155,13 @@ void Sierpinski() {
 		shouldClose = vp.windowShouldClose();
 		vp.clearViewPort();
 
-		DrawSierpinski(vp, VIEWPORT_SIZE_X / 2, VIEWPORT_SIZE_Y / 2 + VIEWPORT_SIZE_Y /2 /2, VIEWPORT_SIZE_X / 2 / 2, 6);
+		PrepareSierpinski(vp, VIEWPORT_SIZE_X / 2, VIEWPORT_SIZE_Y / 2 + VIEWPORT_SIZE_Y /2 /2, VIEWPORT_SIZE_X / 2 / 2, 6);
 		vp.sendLines();
 
 		vp.swapBuffers();
 	}
 }
-
+#pragma endregion
 
 int main() {
 	//SquareTest();
